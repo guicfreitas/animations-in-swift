@@ -12,6 +12,7 @@
 		790516C826FB6378007691E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 790516C726FB6378007691E4 /* Assets.xcassets */; };
 		790516CB26FB6378007691E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 790516CA26FB6378007691E4 /* Preview Assets.xcassets */; };
 		790516D426FB7FBB007691E4 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790516D326FB7FBB007691E4 /* ContentViewModel.swift */; };
+		799C5F7326FBC227002FBBF0 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799C5F7226FBC227002FBBF0 /* CustomCorners.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		790516C726FB6378007691E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		790516CA26FB6378007691E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		790516D326FB7FBB007691E4 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		799C5F7226FBC227002FBBF0 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				790516C526FB6376007691E4 /* ContentView.swift */,
+				799C5F7226FBC227002FBBF0 /* CustomCorners.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				790516C626FB6376007691E4 /* ContentView.swift in Sources */,
+				799C5F7326FBC227002FBBF0 /* CustomCorners.swift in Sources */,
 				790516C426FB6376007691E4 /* animationsInSwiftApp.swift in Sources */,
 				790516D426FB7FBB007691E4 /* ContentViewModel.swift in Sources */,
 			);
