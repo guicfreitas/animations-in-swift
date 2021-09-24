@@ -11,7 +11,8 @@ struct ContentView: View {
     
     @StateObject var contentData = ContentViewModel()
     
-    //movend
+    //Movendo imagem para o top
+    @Namespace var animation
     
     var body: some View {
         ZStack(alignment:.bottom){
@@ -36,6 +37,17 @@ struct ContentView: View {
                     }.padding(10)
                         .background(Color(red: 0.04, green: 0.47, blue: 0.87, opacity: 1.00))
                         .clipShape(Circle())
+                        .overlay(
+                            Text("\(contentData.cartItems)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(10)
+                                .background(Color.red)
+                                .clipShape(Circle())
+                                .offset(x: 15, y: -10)
+                                .opacity(contentData.cartItems != 0 ? 1 : 0)
+                        )
                     
                 }
                 ScrollView(){
@@ -77,12 +89,59 @@ struct ContentView: View {
             }.padding(.horizontal,10)
                 .blur(radius: contentData.showCart ? 50 : 0)
             
-            AddToCart()
+            AddToCart(animation: animation)
                 .offset(y: contentData.showCart ? contentData.startAnimation ? 500 : 0 : 500)
                 .environmentObject(contentData)
+            
+            //ANIMACOES
+            
+            if contentData.startAnimation{
+                VStack{
+                    Spacer()
+                    
+                    ZStack{
+                        
+                        Color.white
+                            .frame(width: contentData.shoeAnimation ? 100 : getRect().width * 1.3, height: contentData.shoeAnimation ? 100 : getRect().width * 1.3)
+                            .clipShape(Circle())
+                            .opacity(contentData.shoeAnimation ? 1 : 0)
+                        
+                        Image("tenis")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .matchedGeometryEffect(id: "SHOE", in: animation)
+                            .frame(width: 80, height: 80)
+                    }
+                    .offset(y: contentData.saveCart ? 70 : -120)
+                    //Efeito de escala
+                    .scaleEffect(contentData.saveCart ? 0.6 : 1)
+                    .onAppear(perform: contentData.perfomAnimation)
+                    
+                    if !contentData.saveCart{
+                        Spacer()
+                    }
+                    
+                    
+                    
+                    Image(systemName: "bag\(contentData.addItemtoCart ? ".fill" : "")")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(contentData.addItemtoCart ? .green : Color(red: 0.04, green: 0.47, blue: 0.87, opacity: 1.00))
+                        .clipShape(Circle())
+                        .offset(y:contentData.showBag ? -50 : 300)
+                }
+                .frame(width: getRect().width)
+                .offset(y: contentData.endAnimation ? 500 : 0)
+            }
         }
         .ignoresSafeArea(.all,edges: .bottom)
         .background(Color.black.opacity(0.04).ignoresSafeArea())
+        .onChange(of: contentData.endAnimation) { value in
+            if contentData.endAnimation{
+                contentData.resetAll()
+            }
+        }
     }
 }
 
@@ -95,14 +154,19 @@ struct ContentView_Previews: PreviewProvider {
 
 struct AddToCart: View {
     @EnvironmentObject var contentData: ContentViewModel
+    var animation: Namespace.ID
     
     var body: some View{
         VStack{
             HStack(spacing: 15){
-                Image("tenis")
-                    .resizable()
-                    .aspectRatio( contentMode: .fit)
-                    .padding(.horizontal)
+                
+                if !contentData.startAnimation{
+                    Image("tenis")
+                        .resizable()
+                        .aspectRatio( contentMode: .fit)
+                        .matchedGeometryEffect(id: "SHOE", in: animation)
+                }
+                
                 VStack(alignment: .trailing, spacing: 10){
                     Text("Adidas NMD R1 PK, Tricolor")
                         .fontWeight(.semibold)
@@ -167,3 +231,9 @@ struct AddToCart: View {
 }
 
 let sizes = ["BR38","BR39","BR40","BR41","BR42"]
+
+extension View{
+    func getRect()->CGRect{
+        return UIScreen.main.bounds
+    }
+}
